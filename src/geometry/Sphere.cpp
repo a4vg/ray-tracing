@@ -3,8 +3,6 @@
 
 #include "Object.cpp"
 
-const float k_epsilon = 1e-8;
-
 class Sphere: public Object {
 private:
   float radius;
@@ -13,13 +11,13 @@ public:
   Sphere(RGB &_color, Point3 _center, float _radius);
   ~Sphere() {};
 
-  bool intersection(const Ray ray) const;
+  bool intersection(const Ray ray, float &t_min) const;
 };
 
 inline Sphere::Sphere(RGB &_color, Point3 _center, float _radius)
 : Object(_color), center(_center), radius(_radius) {}
 
-inline bool Sphere::intersection(const Ray ray) const {
+inline bool Sphere::intersection(const Ray ray, float &t_min) const {
   /**
    * Sets t to the distance between ray.origin to the intersection
    * with the object. To find t: 
@@ -31,6 +29,8 @@ inline bool Sphere::intersection(const Ray ray) const {
    * d = b^2 - 4ac              <-- d<0 no hit, d=0 one hit,
    *                                d>0 two hits (in and out of the sphere)
    **/ 
+  const float k_epsilon = 1e-8;
+
   float a = ray.direction*ray.direction;
   float b = (ray.direction*2.0f) * (ray.origin-center);
   float c = (ray.origin-center) * (ray.origin-center) - radius*radius;
@@ -44,11 +44,16 @@ inline bool Sphere::intersection(const Ray ray) const {
 
   // at two intersections
   float smaller_root = (-b-e)/(2.0*a);
-  if (smaller_root > k_epsilon) return true;
-
+  if (smaller_root > k_epsilon) {
+    t_min = smaller_root;
+    return true;
+  }
 
   float larger_root = (-b+e)/(2.0*a);
-  if (larger_root > k_epsilon) return true;
+  if (larger_root > k_epsilon) {
+    t_min = larger_root;
+    return true;
+  }
 
   // one intersection (d ≈ 0)
   return false;

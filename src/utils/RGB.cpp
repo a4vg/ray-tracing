@@ -9,8 +9,8 @@ struct RGB {
   : r(_r), g(_g), b(_b) {};
 
   // Copy
-  RGB(const RGB& rgb): r(rgb.r), g(rgb.b), b(rgb.b) {};
-  // RGB& operator=(RGB rgb) { r=rgb.r; g=rgb.g; b=rgb.b; return *this; }
+  RGB(const RGB& rgb): r(rgb.r), g(rgb.g), b(rgb.b) {};
+  RGB& operator=(RGB rgb) { r=rgb.r; g=rgb.g; b=rgb.b; return *this; }
 };
 
 #endif // RGB_CPP

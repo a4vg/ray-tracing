@@ -14,7 +14,7 @@ public:
   Object(RGB &_color);
   virtual ~Object() {};
 
-  virtual bool intersection(const Ray ray) const = 0;
+  virtual bool intersection(const Ray ray, float &t_min) const = 0;
 };
 
 inline Object::Object(RGB &_color)

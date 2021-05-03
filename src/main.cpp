@@ -8,11 +8,16 @@
 #include "utils/RGB.cpp"
 #include "utils/Point3.cpp"
 #include "geometry/Sphere.cpp"
+#include "geometry/Plane.cpp"
 
 void build(World &w, ViewPlane &vp) {
   vp = ViewPlane(200, 200, 1); // w h pxs
-  RGB blue(0,0,250);
-  w.add_object(std::make_shared<Sphere>(blue, Point3(0,0,0), 85));
+  RGB blue(0,0,255);
+  RGB red(255,0,0);
+  RGB green(0,255,0);
+  w.add_object(std::make_shared<Sphere>(blue, Point3(0,-25,0), 80));
+  w.add_object(std::make_shared<Sphere>(red, Point3(0,30,0), 60 ));
+  w.add_object(std::make_shared<Plane>(green, Vector3(0,1,1), Point3(0,0,0)));
 }
 
 void render(World &w, ViewPlane &vp, float depth) {
@@ -29,7 +34,7 @@ void render(World &w, ViewPlane &vp, float depth) {
       ray.origin = Point3(x, y, depth);
       px_color = w.hit(ray);
 
-      vp.paint_px(r, c, px_color);
+      vp.paint_px(c, r, px_color);
     }
     vp.show();
   }

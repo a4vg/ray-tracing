@@ -30,9 +30,10 @@ inline ViewPlane::ViewPlane(unsigned int _width, unsigned int _height, float _px
 }
 
 inline void ViewPlane::paint_px(int x, int y, RGB color) {
-  img(x, y, 0, 0) = color.r;
-  img(x, y, 0, 1) = color.g;
-  img(x, y, 0, 2) = color.b;
+  // the coordinate system in CImg is upside down
+  img(width-x-1, height-y-1, 0, 0) = color.r;
+  img(width-x-1, height-y-1, 0, 1) = color.g;
+  img(width-x-1, height-y-1, 0, 2) = color.b;
 }
 
 inline void ViewPlane::show() {
