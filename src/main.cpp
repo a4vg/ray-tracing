@@ -9,15 +9,19 @@
 #include "utils/Point3.cpp"
 #include "geometry/Sphere.cpp"
 #include "geometry/Plane.cpp"
+#include "geometry/Cylinder.cpp"
 
 void build(World &w, ViewPlane &vp) {
   vp = ViewPlane(200, 200, 1); // w h pxs
   RGB blue(0,0,255);
   RGB red(255,0,0);
   RGB green(0,255,0);
-  w.add_object(std::make_shared<Sphere>(blue, Point3(0,-25,0), 80));
-  w.add_object(std::make_shared<Sphere>(red, Point3(0,30,0), 60 ));
-  w.add_object(std::make_shared<Plane>(green, Vector3(0,1,1), Point3(0,0,0)));
+  // w.add_object(std::make_shared<Sphere>(blue, Point3(0,-25,0), 80));
+  // w.add_object(std::make_shared<Sphere>(red, Point3(0,30,0), 60 ));
+  // w.add_object(std::make_shared<Plane>(green, Vector3(0,1,0), Point3(0,0,0)));
+  w.add_object(std::make_shared<Cylinder>(green, Point3(0,50,0), 20, -20, 40));
+  w.add_object(std::make_shared<Sphere>(red, Point3(0,0,0), 20));
+  w.add_object(std::make_shared<Sphere>(blue, Point3(0,100,0), 20));
 }
 
 void render(World &w, ViewPlane &vp, float depth) {

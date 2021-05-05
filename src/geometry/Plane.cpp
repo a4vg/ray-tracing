@@ -21,8 +21,8 @@ inline bool Plane::intersection(const Ray ray, float &t_min) const {
   /**
    * Sets t to the distance between ray.origin to the intersection (p)
    * with the object. To find t: 
-   * Plane equation: (p-a)*n      <-- a is plane.point, n is plane.normal
-   * Ray equation: o+td           <-- o is ray.origin, d is ray.direction
+   * Plane equation: (p-a)*n = 0      <-- a is plane.point, n is plane.normal
+   * Ray equation: p = o+td           <-- o is ray.origin, d is ray.direction
    * Replacing p:
    *    t = (a-o)*n / (d*n)       <-- t=INF no hit, t<0 no hit, t>0 one hit
    **/ 
