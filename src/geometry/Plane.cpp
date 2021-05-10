@@ -1,23 +1,12 @@
 #ifndef PLANE_CPP
 #define PLANE_CPP
 
-#include "Object.cpp"
+#include "geometry/Plane.h"
 
-class Plane: public Object {
-private:
-  Vector3 normal;
-  Point3 point;
-public:
-  Plane(RGB &_color, Vector3 _normal, Point3 _point);
-  ~Plane(){};
-
-  bool intersection(const Ray ray, float &t_min) const;
-};
-
-inline Plane::Plane(RGB &_color, Vector3 _normal, Point3 _point)
+Plane::Plane(RGB &_color, Vector3 _normal, Point3 _point)
 : Object(_color), normal(_normal), point(_point) {};
 
-inline bool Plane::intersection(const Ray ray, float &t_min) const {
+bool Plane::intersection(const Ray ray, float &t_min, Shader &sr) const {
   /**
    * Sets t to the distance between ray.origin to the intersection (p)
    * with the object. To find t: 
@@ -32,6 +21,8 @@ inline bool Plane::intersection(const Ray ray, float &t_min) const {
 
   if (t>k_epsilon) {
     t_min = t;
+    sr.hit_point = ray.origin + ray.direction*t_min;
+    sr.normal = normal;
     return true;
   }
   return false;

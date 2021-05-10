@@ -1,5 +1,5 @@
-#ifndef VECTOR_CPP
-#define VECTOR_CPP
+#ifndef VECTOR_H
+#define VECTOR_H
 
 #include <cmath>
 
@@ -13,6 +13,8 @@ struct Vector3 {
   Vector3& operator=(const Vector3& p2) { x=p2.x, y=p2.y, z=p2.z; return *this; };
   Vector3 operator+(Vector3 const& p2) const { return Vector3(x+p2.x, y+p2.y, z+p2.z); };
   Vector3 operator-(Vector3 const& p2) const { return Vector3(x-p2.x, y-p2.y, z-p2.z); };
+  Vector3 operator/(Vector3 const& v2) const { return Vector3(x/v2.x, y/v2.y, z/v2.z); };
+  Vector3 operator/(float const& s) const { return Vector3(x/s, y/s, z/s); };
 
   // multiplication with scalar
   Vector3 operator*(const float s) const { return Vector3(x*s, y*s, z*s); };
@@ -24,4 +26,4 @@ struct Vector3 {
   Vector3 get_unit() { float l = this->length(); return Vector3(x/l, y/l, z/l); };
 };
 
-#endif // VECTOR_CPP
+#endif // VECTOR_H

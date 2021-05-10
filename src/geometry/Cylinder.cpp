@@ -1,26 +1,12 @@
 #ifndef CYLINDER_CPP
 #define CYLINDER_CPP
 
-#include <iostream>
-#include "Object.cpp"
+#include "geometry/Cylinder.h"
 
-class Cylinder: public Object {
-private:
-  float radius;
-  Point3 center;
-  float y_start;
-  float y_end;
-public:
-  Cylinder(RGB &_color, Point3 _center, float _y_start, float _y_end, float _radius);
-  ~Cylinder() {};
-
-  bool intersection(const Ray ray, float &t_min) const;
-};
-
-inline Cylinder::Cylinder(RGB &_color, Point3 _center, float _y_start, float _y_end, float _radius)
+Cylinder::Cylinder(RGB &_color, Point3 _center, float _y_start, float _y_end, float _radius)
 : Object(_color), center(_center), y_start(_y_start), y_end(_y_end), radius(_radius) {}
 
-inline bool Cylinder::intersection(const Ray ray, float &t_min) const {
+bool Cylinder::intersection(const Ray ray, float &t_min, Shader &sr) const {
   /**
    * Sets t to the distance between ray.origin to the intersection
    * with the object. To find t:
@@ -45,9 +31,10 @@ inline bool Cylinder::intersection(const Ray ray, float &t_min) const {
   Point3 center2d(center);
   center2d.y = 0;
 
+  Vector3 origin_center = ray_origin2d-center2d;
   float a = ray_direction2d*ray_direction2d;
-  float b = (ray_direction2d*2.0f) * (ray_origin2d-center2d);
-  float c = (ray_origin2d-center2d) * (ray_origin2d-center2d) - radius*radius;
+  float b = (ray_direction2d*2.0f) * (origin_center);
+  float c = (origin_center) * (origin_center) - radius*radius;
 
   float discriminant = b*b - 4*a*c;
 
@@ -62,6 +49,8 @@ inline bool Cylinder::intersection(const Ray ray, float &t_min) const {
     float y_intersect = ray.origin.y + smaller_root*ray.direction.y - center.y;
     if ((y_start<y_intersect && y_intersect<y_end) || (y_end<y_intersect && y_intersect<y_start)) {
       t_min = smaller_root;
+      sr.hit_point = ray.origin + ray.direction*t_min;
+      sr.normal = (origin_center + ray.direction*t_min)/radius;
       return true;
     }
   }
@@ -72,6 +61,8 @@ inline bool Cylinder::intersection(const Ray ray, float &t_min) const {
     t_min = larger_root;
     if ((y_start<y_intersect && y_intersect<y_end) || (y_end<y_intersect && y_intersect<y_start)) {
       t_min = larger_root;
+      sr.hit_point = ray.origin + ray.direction*t_min;
+      sr.normal = (origin_center + ray.direction*t_min)/radius;
       return true;
     }
   }

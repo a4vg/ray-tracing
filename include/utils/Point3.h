@@ -1,8 +1,8 @@
-#ifndef POINT_CPP
-#define POINT_CPP
+#ifndef POINT_H
+#define POINT_H
 
 #include <cmath>
-#include "Vector3.cpp"
+#include "Vector3.h"
 
 struct Point3 {
   float x, y, z;
@@ -19,7 +19,13 @@ struct Point3 {
   // point + vector = point
   Point3 operator+(Vector3 const& p2) const { return Point3(x+p2.x, y+p2.y, z+p2.z); };
 
+  friend bool operator> (Point3 &p1, const Point3 &p2) { return p1.x>p2.x && p1.y>p2.y && p1.z>p2.z; };
+  friend bool operator<= (Point3 &p1, const Point3 &p2) { return p1.x<=p2.x && p1.y<=p2.y && p1.z<=p2.z; };;
+
+  friend bool operator< (Point3 &p1, const Point3 &p2) { return p1.x<p2.x && p1.y<p2.y && p1.z<p2.z; };;
+  friend bool operator>= (Point3 &p1, const Point3 &p2) { return p1.x>=p2.x && p1.y>=p2.y && p1.z>=p2.z; };;
+
   float norm() { return sqrt(x*x + y*y + z*z); };
 };
 
-#endif // POINT_CPP
+#endif // POINT_H
