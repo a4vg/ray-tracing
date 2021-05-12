@@ -4,7 +4,7 @@
 #include "light/DirectionalLight.h"
 
 DirectionalLight::DirectionalLight(RGB _color, Vector3 _direction, float _intensity)
-: color(_color), direction(_direction), intensity(_intensity) {}
+: Light(_color, _direction, _intensity) {}
 
 
 #endif // DIRECTIONALLIGHT_CPP

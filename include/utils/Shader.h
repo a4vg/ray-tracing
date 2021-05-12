@@ -2,16 +2,19 @@
 #define SHADER_H
 
 #include <memory>
+#include <vector>
 
 // #include "../World.h"
 
 // class World;
 #include "../utils/Ray.h" // Point3 -> Vector3
-#include "../light/DirectionalLight.h"
+#include "../light/AmbientLight.h"
+#include "../light/Light.h"
 
 class Shader {
 private:
-  std::shared_ptr<DirectionalLight> light;
+  AmbientLight ambient_light;
+  std::vector<std::shared_ptr<Light>> lights;
 public:
   Ray ray;
   Point3 hit_point;
@@ -19,7 +22,7 @@ public:
   RGB color;
 
   Shader() {};
-  Shader(std::shared_ptr<DirectionalLight> _light);
+  Shader(AmbientLight _ambient_light, std::vector<std::shared_ptr<Light>> _lights);
   ~Shader(){};
 
   RGB shade();

@@ -5,6 +5,7 @@
             "includePath": [
                 "${default}",
                 "${workspaceFolder}/lib",
+                "${workspaceFolder}/include",
                 "/opt/X11/include"
             ],
             "defines": [],

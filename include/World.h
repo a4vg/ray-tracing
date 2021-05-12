@@ -5,21 +5,23 @@
 #include <memory>
 
 #include "geometry/Object.h" // Shader
-#include "light/DirectionalLight.h"
+#include "light/AmbientLight.h"
+#include "light/Light.h"
 
 class World {
 private:
   std::vector<std::shared_ptr<Object>> objects_p;
   RGB bg_color = RGB(0,0,0);
 public:
-  DirectionalLight light;
+  AmbientLight ambient_light;
+  std::vector<std::shared_ptr<Light>> lights;
 
   World() {};
-  World(std::vector<std::shared_ptr<Object>> _objects, DirectionalLight &_light);
   ~World() {};
 
   void add_object(std::shared_ptr<Object> obj_p) { objects_p.push_back(obj_p); };
-  void set_light(DirectionalLight _light) { light = _light; };
+  void add_light(std::shared_ptr<Light> _light) { lights.push_back(_light); };
+  void set_ambient_light(AmbientLight _ambient_light) { ambient_light = _ambient_light; };
   RGB hit(Ray &ray);
 };
 

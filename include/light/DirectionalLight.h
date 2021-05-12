@@ -6,15 +6,11 @@
 
 class DirectionalLight: public Light {
 public:
-  RGB color;
-  Vector3 direction;
-  float intensity;
-
   DirectionalLight() {};
   DirectionalLight(RGB _color, Vector3 _direction, float _intensity);
   ~DirectionalLight() {};
 
-  Vector3 get_direction() { return direction; };
+  Vector3 get_direction(Point3 &hit_point) { return direction; };
 };
 
 #endif // DIRECTIONALLIGHT_H

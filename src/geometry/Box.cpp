@@ -31,10 +31,10 @@ bool Box::intersection(const Ray ray, float &t_min, Shader &sr) const {
   float t_exit = std::min(t_xmax, std::min(t_ymax, t_zmax));
   if (t_enter > t_exit || t_exit<0) return false;
 
-  t_min = t_enter;
+  t_min = t_exit;
   sr.hit_point = ray.origin + ray.direction*t_min;
-  if (t_enter == t_xmin) sr.normal = Vector3(1,0,0); // intersection in x plane
-  else if (t_enter == t_ymin) sr.normal = Vector3(0,1,0); // intersection in y plane
+  if (t_exit == t_xmax) sr.normal = Vector3(0,0,0); // intersection in x plane
+  else if (t_exit == t_ymax) sr.normal = Vector3(0,0,1); // intersection in y plane
   else sr.normal = Vector3(0,0,1); // intersection in z plane
   return true;
 }

@@ -23,7 +23,7 @@ struct Vector3 {
   // cross product
   Vector3 operator^(const Vector3& p2) const { return Vector3(y*p2.z-z*p2.y, z*p2.x-x*p2.z, x*p2.y-y*p2.x); };
   float length() { return sqrt(x*x + y*y + z*z); };
-  Vector3 get_unit() { float l = this->length(); return Vector3(x/l, y/l, z/l); };
+  Vector3 get_unit_vector() { float l = this->length(); return Vector3(x/l, y/l, z/l); };
 };
 
 #endif // VECTOR_H

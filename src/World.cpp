@@ -8,7 +8,8 @@
 const float INF = std::numeric_limits<float>::max();
 
 RGB World::hit(Ray &ray) {
-  Shader sr(std::make_shared<DirectionalLight>(light));
+  Shader sr(ambient_light, lights);
+
   float t, t_min=INF;
   RGB color = bg_color;
   for (auto obj_p: objects_p) {

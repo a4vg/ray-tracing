@@ -12,20 +12,21 @@
 #include "geometry/Plane.h"
 #include "geometry/Cylinder.h"
 #include "geometry/Box.h"
+#include "light/PointLight.h"
+#include "light/DirectionalLight.h"
 
 void build(World &w, ViewPlane &vp) {
-  vp = ViewPlane(200, 200, 1); // w h pxs
-  w.set_light(DirectionalLight(RGB(250,250,250), Vector3(0,0,1), 1));
+  vp = ViewPlane(400, 400, 1); // w h pxs
+  w.set_ambient_light(AmbientLight(RGB(250,250,250), Vector3(0,0,1), 0.4));
+  w.add_light(std::make_shared<PointLight>(RGB(250,250,250), Point3(0,-1,0), 1.3));
+  w.add_light(std::make_shared<DirectionalLight>(RGB(250,250,250), Vector3(0,0,1), 0.3));
+
   RGB blue(0,0,255);
   RGB red(255,0,0);
   RGB green(0,255,0);
-  // w.add_object(std::make_shared<Sphere>(blue, Point3(0,-25,0), 80));
-  w.add_object(std::make_shared<Sphere>(red, Point3(0,30,0), 60 )); // test
-  // w.add_object(std::make_shared<Plane>(green, Vector3(0,1,1), Point3(0,0,0))); // test
-  w.add_object(std::make_shared<Cylinder>(green, Point3(0,50,0), 20, -20, 40)); // teat
-  // w.add_object(std::make_shared<Sphere>(red, Point3(0,0,0), 20));
-  // w.add_object(std::make_shared<Sphere>(blue, Point3(0,100,0), 20));
-  // w.add_object(std::make_shared<Box>(green, Point3(0,0,0), Point3(50,50,50)));
+  w.add_object(std::make_shared<Cylinder>(green, Point3(0,40,-80), 50, -50, 40));
+  w.add_object(std::make_shared<Sphere>(red, Point3(100,100,0), 40));
+  w.add_object(std::make_shared<Plane>(blue, Vector3(0,1,-0.3), Point3(0,0, 200)));
 }
 
 void render(World &w, ViewPlane &vp, float depth) {
@@ -33,7 +34,7 @@ void render(World &w, ViewPlane &vp, float depth) {
   Ray ray;
   RGB px_color;
 
-  ray.direction = Vector3(0,.7,-1);
+  ray.direction = Vector3(0,0,-1);
 
   for (int r=0; r<vp.height; ++r) {
     for (int c=0; c<vp.width; ++c) {
