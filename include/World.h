@@ -10,9 +10,9 @@
 
 class World {
 private:
-  std::vector<std::shared_ptr<Object>> objects_p;
   RGB bg_color = RGB(0,0,0);
 public:
+  std::vector<std::shared_ptr<Object>> objects_p;
   AmbientLight ambient_light;
   std::vector<std::shared_ptr<Light>> lights;
 

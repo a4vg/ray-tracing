@@ -6,7 +6,7 @@
 Plane::Plane(RGB &_color, Vector3 _normal, Point3 _point)
 : Object(_color), normal(_normal), point(_point) {};
 
-bool Plane::intersection(const Ray ray, float &t_min, Shader &sr) const {
+bool Plane::intersection(const Ray ray, float &t_min, std::shared_ptr<Shader> sr) const {
   /**
    * Sets t to the distance between ray.origin to the intersection (p)
    * with the object. To find t: 
@@ -21,8 +21,9 @@ bool Plane::intersection(const Ray ray, float &t_min, Shader &sr) const {
 
   if (t>k_epsilon) {
     t_min = t;
-    sr.hit_point = ray.origin + ray.direction*t_min;
-    sr.normal = normal;
+    if (!sr) return true;
+    sr->hit_point = ray.origin + ray.direction*t_min;
+    sr->normal = normal;
     return true;
   }
   return false;

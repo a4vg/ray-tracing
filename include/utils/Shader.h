@@ -6,23 +6,25 @@
 
 // #include "../World.h"
 
-// class World;
+class World;
+class Object;
+
 #include "../utils/Ray.h" // Point3 -> Vector3
 #include "../light/AmbientLight.h"
 #include "../light/Light.h"
 
 class Shader {
 private:
-  AmbientLight ambient_light;
-  std::vector<std::shared_ptr<Light>> lights;
+  std::shared_ptr<World> world;
 public:
   Ray ray;
   Point3 hit_point;
   Vector3 normal;
   RGB color;
+  std::shared_ptr<Object> obj_p;
 
   Shader() {};
-  Shader(AmbientLight _ambient_light, std::vector<std::shared_ptr<Light>> _lights);
+  Shader(std::shared_ptr<World> world);
   ~Shader(){};
 
   RGB shade();

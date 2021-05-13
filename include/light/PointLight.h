@@ -13,6 +13,7 @@ public:
   ~PointLight() {};
 
   Vector3 get_direction(Point3 &hit_point) { return (origin - hit_point).get_unit_vector(); };
+  Point3 get_origin(Point3 &hit_point) { return origin; }
 };
 
 #endif // POINTLIGHT_H

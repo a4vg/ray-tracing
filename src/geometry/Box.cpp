@@ -7,7 +7,7 @@
 Box::Box(RGB &_color, Point3 _bound_bot, Point3 _bound_top)
 : Object(_color), bound_bot(_bound_bot), bound_top(_bound_top) {};
 
-bool Box::intersection(const Ray ray, float &t_min, Shader &sr) const {
+bool Box::intersection(const Ray ray, float &t_min, std::shared_ptr<Shader> sr) const {
   /**
    * Sets t to the distance between ray.origin to the intersection (p)
    * with the object. To find t:
@@ -32,10 +32,11 @@ bool Box::intersection(const Ray ray, float &t_min, Shader &sr) const {
   if (t_enter > t_exit || t_exit<0) return false;
 
   t_min = t_exit;
-  sr.hit_point = ray.origin + ray.direction*t_min;
-  if (t_exit == t_xmax) sr.normal = Vector3(0,0,0); // intersection in x plane
-  else if (t_exit == t_ymax) sr.normal = Vector3(0,0,1); // intersection in y plane
-  else sr.normal = Vector3(0,0,1); // intersection in z plane
+  if (!sr) return true;
+  sr->hit_point = ray.origin + ray.direction*t_min;
+  if (t_exit == t_xmax) sr->normal = Vector3(0,0,0); // intersection in x plane
+  else if (t_exit == t_ymax) sr->normal = Vector3(0,0,1); // intersection in y plane
+  else sr->normal = Vector3(0,0,1); // intersection in z plane
   return true;
 }
 

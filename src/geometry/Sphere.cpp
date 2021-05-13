@@ -1,12 +1,13 @@
 #ifndef SPHERE_CPP
 #define SPHERE_CPP
 
+#include <iostream>
 #include "geometry/Sphere.h"
 
 Sphere::Sphere(RGB &_color, Point3 _center, float _radius)
 : Object(_color), center(_center), radius(_radius) {}
 
-bool Sphere::intersection(const Ray ray, float &t_min, Shader &sr) const {
+bool Sphere::intersection(const Ray ray, float &t_min, std::shared_ptr<Shader> sr) const {
   /**
    * Sets t to the distance between ray.origin to the intersection
    * with the object. To find t: 
@@ -36,16 +37,18 @@ bool Sphere::intersection(const Ray ray, float &t_min, Shader &sr) const {
   float smaller_root = (-b-e)/(2.0*a);
   if (smaller_root > k_epsilon) {
     t_min = smaller_root;
-    sr.hit_point = ray.origin + ray.direction*t_min;
-    sr.normal = (origin_center + ray.direction*t_min)/radius;
+    if (!sr) return true;
+    sr->hit_point = ray.origin + ray.direction*t_min;
+    sr->normal = (origin_center + ray.direction*t_min)/radius;
     return true;
   }
 
   float larger_root = (-b+e)/(2.0*a);
   if (larger_root > k_epsilon) {
     t_min = larger_root;
-    sr.hit_point = ray.origin + ray.direction*t_min;
-    sr.normal = (origin_center + ray.direction*t_min)/radius;
+    if (!sr) return true;
+    sr->hit_point = ray.origin + ray.direction*t_min;
+    sr->normal = (origin_center + ray.direction*t_min)/radius;
     return true;
   }
 

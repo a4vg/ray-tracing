@@ -11,6 +11,7 @@ public:
   ~DirectionalLight() {};
 
   Vector3 get_direction(Point3 &hit_point) { return direction*-1; };
+  Point3 get_origin(Point3 &hit_point) { return hit_point; };
 };
 
 #endif // DIRECTIONALLIGHT_H

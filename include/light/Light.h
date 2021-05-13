@@ -15,6 +15,7 @@ public:
   virtual ~Light(){};
 
   virtual Vector3 get_direction(Point3 &hit_point) = 0;
+  virtual Point3 get_origin(Point3 &hit_point) = 0;
 };
 
 #endif // LIGHT_H

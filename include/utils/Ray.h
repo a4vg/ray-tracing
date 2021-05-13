@@ -9,7 +9,7 @@ public:
   Vector3 direction;
 
   Ray(){};
-  Ray(Point3& _origin, Vector3& _direction);
+  Ray(Point3 _origin, Vector3 _direction);
   ~Ray() {};
 };
 

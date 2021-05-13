@@ -6,7 +6,7 @@
 Cylinder::Cylinder(RGB &_color, Point3 _center, float _y_start, float _y_end, float _radius)
 : Object(_color), center(_center), y_start(_y_start), y_end(_y_end), radius(_radius) {}
 
-bool Cylinder::intersection(const Ray ray, float &t_min, Shader &sr) const {
+bool Cylinder::intersection(const Ray ray, float &t_min, std::shared_ptr<Shader> sr) const {
   /**
    * Sets t to the distance between ray.origin to the intersection
    * with the object. To find t:
@@ -49,8 +49,9 @@ bool Cylinder::intersection(const Ray ray, float &t_min, Shader &sr) const {
     float y_intersect = ray.origin.y + smaller_root*ray.direction.y - center.y;
     if ((y_start<y_intersect && y_intersect<y_end) || (y_end<y_intersect && y_intersect<y_start)) {
       t_min = smaller_root;
-      sr.hit_point = ray.origin + ray.direction*t_min;
-      sr.normal = (origin_center + ray.direction*t_min)/radius;
+      if (!sr) return true;
+      sr->hit_point = ray.origin + ray.direction*t_min;
+      sr->normal = (origin_center + ray.direction*t_min)/radius;
       return true;
     }
   }
@@ -61,8 +62,9 @@ bool Cylinder::intersection(const Ray ray, float &t_min, Shader &sr) const {
     t_min = larger_root;
     if ((y_start<y_intersect && y_intersect<y_end) || (y_end<y_intersect && y_intersect<y_start)) {
       t_min = larger_root;
-      sr.hit_point = ray.origin + ray.direction*t_min;
-      sr.normal = (origin_center + ray.direction*t_min)/radius;
+      if (!sr) return true;
+      sr->hit_point = ray.origin + ray.direction*t_min;
+      sr->normal = (origin_center + ray.direction*t_min)/radius;
       return true;
     }
   }
