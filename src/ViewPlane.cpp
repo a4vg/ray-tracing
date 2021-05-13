@@ -3,6 +3,11 @@
 
 #include "ViewPlane.h"
 
+ViewPlane::ViewPlane(ViewPlane &vp)
+: width(vp.width), height(vp.height), px_size(vp.px_size) {
+  img.assign(width, height, 1, 3, 0); // w h depth channels black
+}
+
 ViewPlane::ViewPlane(unsigned int _width, unsigned int _height, float _px_size)
 : width(_width), height(_height), px_size(_px_size) {
   img.assign(width, height, 1, 3, 0); // w h depth channels black
@@ -10,9 +15,9 @@ ViewPlane::ViewPlane(unsigned int _width, unsigned int _height, float _px_size)
 
 void ViewPlane::paint_px(int x, int y, RGB color) {
   // the coordinate system in CImg is upside down
-  img(width-x-1, height-y-1, 0, 0) = color.r;
-  img(width-x-1, height-y-1, 0, 1) = color.g;
-  img(width-x-1, height-y-1, 0, 2) = color.b;
+  img(x, height-y-1, 0, 0) = color.r;
+  img(x, height-y-1, 0, 1) = color.g;
+  img(x, height-y-1, 0, 2) = color.b;
 }
 
 void ViewPlane::show() {

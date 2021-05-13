@@ -16,6 +16,7 @@ public:
   float px_size;
 
   ViewPlane(){};
+  ViewPlane(ViewPlane &vp);
   ViewPlane(unsigned int _width, unsigned int _height, float _px_size);
   ~ViewPlane(){};
 

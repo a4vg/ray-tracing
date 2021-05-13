@@ -10,7 +10,7 @@ public:
   DirectionalLight(RGB _color, Vector3 _direction, float _intensity);
   ~DirectionalLight() {};
 
-  Vector3 get_direction(Point3 &hit_point) { return direction; };
+  Vector3 get_direction(Point3 &hit_point) { return direction*-1; };
 };
 
 #endif // DIRECTIONALLIGHT_H
