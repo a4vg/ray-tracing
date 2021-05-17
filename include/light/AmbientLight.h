@@ -11,7 +11,7 @@ public:
   ~AmbientLight() {};
 
   Vector3 get_direction(Point3 &hit_point) { return Vector3(0,0,0); };
-  Point3 get_origin(Point3 &hit_point) { return Point3(0,0,0); };
+  bool is_shadow(std::vector<std::shared_ptr<Object>> objects_p, std::shared_ptr<Shader> sr) { return false; };
 };
 
 #endif // AMBIENTLIGHT_H

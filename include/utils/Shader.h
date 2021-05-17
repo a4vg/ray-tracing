@@ -21,12 +21,13 @@ public:
   Point3 hit_point;
   Vector3 normal;
   RGB color;
-  std::shared_ptr<Object> obj_p;
+  std::shared_ptr<Object> obj_p = nullptr;
 
   Shader() {};
   Shader(std::shared_ptr<World> world);
   ~Shader(){};
 
+  void operator=(const Shader &sr); // copy
   RGB shade();
 };
 

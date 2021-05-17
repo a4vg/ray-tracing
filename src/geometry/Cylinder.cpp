@@ -50,6 +50,7 @@ bool Cylinder::intersection(const Ray ray, float &t_min, std::shared_ptr<Shader>
     if ((y_start<y_intersect && y_intersect<y_end) || (y_end<y_intersect && y_intersect<y_start)) {
       t_min = smaller_root;
       if (!sr) return true;
+      sr->color = color;
       sr->hit_point = ray.origin + ray.direction*t_min;
       sr->normal = (origin_center + ray.direction*t_min)/radius;
       return true;
@@ -63,6 +64,7 @@ bool Cylinder::intersection(const Ray ray, float &t_min, std::shared_ptr<Shader>
     if ((y_start<y_intersect && y_intersect<y_end) || (y_end<y_intersect && y_intersect<y_start)) {
       t_min = larger_root;
       if (!sr) return true;
+      sr->color = color;
       sr->hit_point = ray.origin + ray.direction*t_min;
       sr->normal = (origin_center + ray.direction*t_min)/radius;
       return true;

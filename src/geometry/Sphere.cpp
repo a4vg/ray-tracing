@@ -40,6 +40,7 @@ bool Sphere::intersection(const Ray ray, float &t_min, std::shared_ptr<Shader> s
     if (!sr) return true;
     sr->hit_point = ray.origin + ray.direction*t_min;
     sr->normal = (origin_center + ray.direction*t_min)/radius;
+    sr->color = color;
     return true;
   }
 
@@ -49,6 +50,7 @@ bool Sphere::intersection(const Ray ray, float &t_min, std::shared_ptr<Shader> s
     if (!sr) return true;
     sr->hit_point = ray.origin + ray.direction*t_min;
     sr->normal = (origin_center + ray.direction*t_min)/radius;
+    sr->color = color;
     return true;
   }
 

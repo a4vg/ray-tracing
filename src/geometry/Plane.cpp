@@ -24,6 +24,7 @@ bool Plane::intersection(const Ray ray, float &t_min, std::shared_ptr<Shader> sr
     if (!sr) return true;
     sr->hit_point = ray.origin + ray.direction*t_min;
     sr->normal = normal;
+    sr->color = color;
     return true;
   }
   return false;

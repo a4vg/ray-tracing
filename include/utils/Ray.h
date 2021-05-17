@@ -11,6 +11,8 @@ public:
   Ray(){};
   Ray(Point3 _origin, Vector3 _direction);
   ~Ray() {};
+
+  void operator=(const Ray &ray); // copy
 };
 
 #endif // RAY_H

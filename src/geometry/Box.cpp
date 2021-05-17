@@ -33,6 +33,7 @@ bool Box::intersection(const Ray ray, float &t_min, std::shared_ptr<Shader> sr) 
 
   t_min = t_exit;
   if (!sr) return true;
+  sr->color = color;
   sr->hit_point = ray.origin + ray.direction*t_min;
   if (t_exit == t_xmax) sr->normal = Vector3(0,0,0); // intersection in x plane
   else if (t_exit == t_ymax) sr->normal = Vector3(0,0,1); // intersection in y plane
