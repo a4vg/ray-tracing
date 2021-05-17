@@ -4,8 +4,8 @@
 #include <iostream>
 #include "geometry/Sphere.h"
 
-Sphere::Sphere(RGB &_color, Point3 _center, float _radius)
-: Object(_color), center(_center), radius(_radius) {}
+Sphere::Sphere(RGB &_color, std::shared_ptr<Material> _material, Point3 _center, float _radius)
+: Object(_color, _material), center(_center), radius(_radius) {}
 
 bool Sphere::intersection(const Ray ray, float &t_min, std::shared_ptr<Shader> sr) const {
   /**

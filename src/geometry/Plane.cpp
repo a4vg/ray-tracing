@@ -3,8 +3,8 @@
 
 #include "geometry/Plane.h"
 
-Plane::Plane(RGB &_color, Vector3 _normal, Point3 _point)
-: Object(_color), normal(_normal), point(_point) {};
+Plane::Plane(RGB &_color, std::shared_ptr<Material> _material, Vector3 _normal, Point3 _point)
+: Object(_color, _material), normal(_normal), point(_point) {};
 
 bool Plane::intersection(const Ray ray, float &t_min, std::shared_ptr<Shader> sr) const {
   /**

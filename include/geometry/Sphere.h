@@ -8,7 +8,7 @@ private:
   float radius;
   Point3 center;
 public:
-  Sphere(RGB &_color, Point3 _center, float _radius);
+  Sphere(RGB &_color, std::shared_ptr<Material> _material, Point3 _center, float _radius);
   ~Sphere() {};
 
   bool intersection(const Ray ray, float &t_min, std::shared_ptr<Shader> sr) const;

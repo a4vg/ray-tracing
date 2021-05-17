@@ -14,9 +14,8 @@ class Object;
 #include "../light/Light.h"
 
 class Shader {
-private:
-  std::shared_ptr<World> world;
 public:
+  std::shared_ptr<World> world;
   Ray ray;
   Point3 hit_point;
   Vector3 normal;
@@ -28,7 +27,6 @@ public:
   ~Shader(){};
 
   void operator=(const Shader &sr); // copy
-  RGB shade();
 };
 
 #endif // SHADER_H

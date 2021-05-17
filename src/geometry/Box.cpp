@@ -4,8 +4,8 @@
 #include <algorithm>
 #include "geometry/Box.h"
 
-Box::Box(RGB &_color, Point3 _bound_bot, Point3 _bound_top)
-: Object(_color), bound_bot(_bound_bot), bound_top(_bound_top) {};
+Box::Box(RGB &_color, std::shared_ptr<Material> _material, Point3 _bound_bot, Point3 _bound_top)
+: Object(_color, _material), bound_bot(_bound_bot), bound_top(_bound_top) {};
 
 bool Box::intersection(const Ray ray, float &t_min, std::shared_ptr<Shader> sr) const {
   /**

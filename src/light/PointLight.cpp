@@ -11,9 +11,11 @@ PointLight::PointLight(RGB _color, Point3 _origin, float _intensity)
 
 bool PointLight::is_shadow(std::vector<std::shared_ptr<Object>> objects_p, std::shared_ptr<Shader> sr) {
   Ray shadow_ray(sr->hit_point + sr->normal*1e-2, get_direction(sr->hit_point));
-  float temp;
+
+  float ray_d = (shadow_ray.origin - origin).length();
+  float t;
   for (auto obj_p : objects_p) {
-    if (obj_p->intersection(shadow_ray, temp)) return true;
+    if (obj_p->intersection(shadow_ray, t) && t<ray_d) return true;
   }
   return false;
 }

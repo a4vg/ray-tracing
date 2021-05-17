@@ -23,8 +23,8 @@ RGB World::hit(Ray &ray) {
       }
     }
   }
-
-  return f_sr.shade();
+  
+  return f_sr.obj_p? f_sr.obj_p->shade(f_sr) : bg_color;
 }
 
 #endif // WORLD_CPP

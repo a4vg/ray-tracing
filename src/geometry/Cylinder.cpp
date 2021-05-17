@@ -3,8 +3,8 @@
 
 #include "geometry/Cylinder.h"
 
-Cylinder::Cylinder(RGB &_color, Point3 _center, float _y_start, float _y_end, float _radius)
-: Object(_color), center(_center), y_start(_y_start), y_end(_y_end), radius(_radius) {}
+Cylinder::Cylinder(RGB &_color, std::shared_ptr<Material> _material, Point3 _center, float _y_start, float _y_end, float _radius)
+: Object(_color, _material), center(_center), y_start(_y_start), y_end(_y_end), radius(_radius) {}
 
 bool Cylinder::intersection(const Ray ray, float &t_min, std::shared_ptr<Shader> sr) const {
   /**
