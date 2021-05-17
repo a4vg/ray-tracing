@@ -11,7 +11,7 @@ struct Vector3 {
   Vector3(const Vector3& p): x(p.x), y(p.y), z(p.z) {};
 
   void operator=(const Vector3& p2) { x=p2.x, y=p2.y, z=p2.z; }; // copy
-  Vector3 operator+(Vector3 const& p2) const { return Vector3(x+p2.x, y+p2.y, z+p2.z); };
+  Vector3 operator+(Vector3 const& v2) const { return Vector3(x+v2.x, y+v2.y, z+v2.z); };
   Vector3 operator-(Vector3 const& p2) const { return Vector3(x-p2.x, y-p2.y, z-p2.z); };
   Vector3 operator/(Vector3 const& v2) const { return Vector3(x/v2.x, y/v2.y, z/v2.z); };
   Vector3 operator/(float const& s) const { return Vector3(x/s, y/s, z/s); };

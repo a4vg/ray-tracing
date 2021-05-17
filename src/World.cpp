@@ -24,6 +24,7 @@ RGB World::hit(Ray &ray) {
     }
   }
   
+  f_sr.ray_casted = ray;
   return f_sr.obj_p? f_sr.obj_p->shade(f_sr) : bg_color;
 }
 

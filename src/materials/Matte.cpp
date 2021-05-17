@@ -8,9 +8,10 @@ RGB Matte::shade(Shader &sr) {
   /**
    * https://www.cs.cornell.edu/courses/cs4620/2017sp/slides/05rt-shading.pdf (pg. 6)
    * 
-   * L = k_d * (I/r^2) * max(0, n*l)   <-- k_d diffuse coefficient, I light intensity,
-   *                                       r distance of light origin to hit point,
-   *                                       n normal of object at hit point, l light direction
+   * Matte shading = only diffuse
+   * 
+   * L_diffuse = k_d * I * max(0, n*l)   <-- k_d diffuse coefficient, I light intensity,
+   *                                               n normal of object at hit point, l light direction
    **/
 
   float diff_coef = 1;

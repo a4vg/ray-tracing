@@ -16,7 +16,7 @@ class Object;
 class Shader {
 public:
   std::shared_ptr<World> world;
-  Ray ray;
+  Ray ray_casted;
   Point3 hit_point;
   Vector3 normal;
   RGB color;
