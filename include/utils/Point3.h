@@ -19,6 +19,8 @@ struct Point3 {
   Point3 operator-(Vector3 const& p2) const { return Point3(x-p2.x, y-p2.y, z-p2.z); };
   // point + vector = point
   Point3 operator+(Vector3 const& p2) const { return Point3(x+p2.x, y+p2.y, z+p2.z); };
+  Point3 operator*(float f) const { return Point3(x*f, y*f, z*f); };
+
 
   friend bool operator> (Point3 &p1, const Point3 &p2) { return p1.x>p2.x && p1.y>p2.y && p1.z>p2.z; };
   friend bool operator<= (Point3 &p1, const Point3 &p2) { return p1.x<=p2.x && p1.y<=p2.y && p1.z<=p2.z; };;
