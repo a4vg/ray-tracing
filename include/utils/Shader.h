@@ -21,6 +21,7 @@ public:
   Vector3 normal;
   RGB color;
   std::shared_ptr<Object> obj_p = nullptr;
+  int depth = 1;
 
   Shader() {};
   Shader(std::shared_ptr<World> world);

@@ -1,12 +1,13 @@
-#ifndef MIRROR_CPP
-#define MIRROR_CPP
+#ifndef GLASS_CPP
+#define GLASS_CPP
 
-#include "materials/Mirror.h"
+#include "materials/Glass.h"
 #include "World.h"
 
 #include <cmath>
+#include <iostream>
 
-RGB Mirror::shade(Shader &sr) {
+RGB Glass::shade(Shader &sr) {
   /**
    * https://www.cs.cornell.edu/courses/cs4620/2012fa/lectures/35raytracing.pdf (pg. 10)
    * 
@@ -16,6 +17,19 @@ RGB Mirror::shade(Shader &sr) {
 
   Ray reflec_ray(sr.hit_point+ sr.normal*1e-3, reflected_dir(sr.ray_casted.direction, sr.normal));
   RGB reflec_color = sr.world->hit(reflec_ray, sr.depth+1);
+  bool exists = false;
+  // Vector3 bias = sr.normal*1e-3;
+  // if (exists) bias = bias*-1;
+  Vector3 refrac_dir = refracted_dir(exists, sr.ray_casted.direction, sr.normal, 1.2).get_unit_vector();
+  Ray refr_ray(sr.hit_point + refrac_dir*1e-2, refrac_dir);
+  // + sr.normal*1e-3
+  RGB refracted_color(0,0,0);
+  // if (exists){
+    refracted_color = sr.world->hit(refr_ray, sr.depth+1);
+  // }
+  // RGB temp = sr.world->hit(refr_ray, sr.depth+1);
+
+  // std::cout << temp.r << " " << temp.g << " " << temp.b << " " << sr.depth << "\n";
 
   float diff_coef = .9;
   float spec_coef = .5;
@@ -37,9 +51,20 @@ RGB Mirror::shade(Shader &sr) {
     }
   }
 
-  RGB final_color = sr.color*L + reflec_color*0.2;
+  // sr.color*L +
+
+  RGB final_color;
+  // = sr.color*L + reflec_color*0.7;
+  // if (exists) {
+    final_color =  sr.color*L*0.5 +refracted_color*.4;
+    // final_color*0.2 +
+    // std::cout << refracted_color.r << " " << refracted_color.g << " " << refracted_color.b << " " << sr.depth << "\n";
+  // }
+  // else {
+  //   final_color = RGB(0, 255, 0);
+  // }
   final_color.norm();
   return final_color;
 }
 
-#endif // MIRROR_CPP
+#endif // GLASS_CPP

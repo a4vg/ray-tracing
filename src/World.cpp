@@ -8,9 +8,13 @@
 
 const float INF = std::numeric_limits<float>::max();
 
-RGB World::hit(Ray &ray) {
+RGB World::hit(Ray &ray, int depth) {
+  if (depth > max_depth) return RGB(0,0,0);
+
   auto sr = std::make_shared<Shader>(std::make_shared<World>(*this));
   auto f_sr = Shader(std::make_shared<World>(*this));
+
+  f_sr.depth = depth;
 
   float t, t_min=INF;
   f_sr.color = bg_color;
