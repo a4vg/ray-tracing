@@ -7,6 +7,7 @@
 class PointLight: public Light {
 public:
   Point3 origin;
+  bool no_shadow = false;
 
   PointLight() {};
   PointLight(RGB _color, Point3 _origin, float _intensity);
@@ -14,6 +15,7 @@ public:
 
   Vector3 get_direction(Point3 &hit_point) { return (origin - hit_point).get_unit_vector(); }; // from hit point to origin
   bool is_shadow(std::vector<std::shared_ptr<Object>> objects_p, std::shared_ptr<Shader> sr);
+  float distance(Point3 &p);
 };
 
 #endif // POINTLIGHT_H

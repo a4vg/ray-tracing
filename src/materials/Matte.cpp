@@ -24,7 +24,7 @@ RGB Matte::shade(Shader &sr) {
       if (n_dir > 0.0) {
         bool shadow = light->is_shadow(sr.world->objects_p, std::make_shared<Shader>(sr));
         if (!shadow)
-          L += diff_coef * light->intensity * n_dir;
+          L += diff_coef * light->intensity * n_dir / (pow(light->distance(sr.hit_point), 2));
       }
     }
   }

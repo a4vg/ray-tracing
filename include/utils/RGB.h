@@ -15,6 +15,7 @@ struct RGB {
   void operator=(RGB rgb) { r=rgb.r; g=rgb.g; b=rgb.b; }
 
   RGB operator*(float s) const { return RGB(r*s, g*s, b*s); };
+  RGB operator*(RGB rgb) const { return RGB(r*rgb.r, g*rgb.g, b*rgb.b); };
   RGB operator+(RGB rgb) const { return RGB(r+rgb.r, g+rgb.g, b+rgb.b); };
 
   void norm() { // max to one technique

@@ -14,13 +14,14 @@ RGB Glass::shade(Shader &sr) {
    * Cast a ray from the hit point in inverted direction
    * and add the color to the final results.
    **/
+  float eta = 1.25;
 
   Ray reflec_ray(sr.hit_point+ sr.normal*1e-3, reflected_dir(sr.ray_casted.direction, sr.normal));
   RGB reflec_color = sr.world->hit(reflec_ray, sr.depth+1);
   bool exists = false;
   // Vector3 bias = sr.normal*1e-3;
   // if (exists) bias = bias*-1;
-  Vector3 refrac_dir = refracted_dir(exists, sr.ray_casted.direction, sr.normal, 1.2).get_unit_vector();
+  Vector3 refrac_dir = refracted_dir(exists, sr.ray_casted.direction, sr.normal, eta).get_unit_vector();
   Ray refr_ray(sr.hit_point + refrac_dir*1e-2, refrac_dir);
   // + sr.normal*1e-3
   RGB refracted_color(0,0,0);
@@ -35,6 +36,8 @@ RGB Glass::shade(Shader &sr) {
   float spec_coef = .5;
   float spec_exp = 70;
   float L = diff_coef * sr.world->ambient_light.intensity;
+
+  RGB final_color;
 
   if (sr.obj_p) { // check if ray hit something
     for (auto light : sr.world->lights) {
@@ -51,18 +54,7 @@ RGB Glass::shade(Shader &sr) {
     }
   }
 
-  // sr.color*L +
-
-  RGB final_color;
-  // = sr.color*L + reflec_color*0.7;
-  // if (exists) {
-    final_color =  sr.color*L*0.5 +refracted_color*.4;
-    // final_color*0.2 +
-    // std::cout << refracted_color.r << " " << refracted_color.g << " " << refracted_color.b << " " << sr.depth << "\n";
-  // }
-  // else {
-  //   final_color = RGB(0, 255, 0);
-  // }
+  final_color =  sr.color*L*0.2 +refracted_color*.5 + reflec_color*0.5;
   final_color.norm();
   return final_color;
 }

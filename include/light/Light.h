@@ -22,6 +22,7 @@ public:
 
   virtual Vector3 get_direction(Point3 &hit_point) = 0;
   virtual bool is_shadow(std::vector<std::shared_ptr<Object>> objects_p, std::shared_ptr<Shader> sr) = 0;
+  virtual float distance(Point3 &p) = 0;
 };
 
 #endif // LIGHT_H
