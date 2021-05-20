@@ -54,7 +54,7 @@ RGB Glass::shade(Shader &sr) {
     }
   }
 
-  final_color =  sr.color*L*0.2 +refracted_color*.5 + reflec_color*0.5;
+  final_color =  sr.color*L*0.3 +refracted_color*.5 + reflec_color*0.6;
   final_color.norm();
   return final_color;
 }

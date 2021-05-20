@@ -10,6 +10,7 @@ namespace colors {
   static RGB green(0,255,0);
   static RGB yellow(255,255,0);
   static RGB white(255,255,255);
+  static RGB brown(181,155,149);
 }
 
 #endif // MATERIALS_CPP

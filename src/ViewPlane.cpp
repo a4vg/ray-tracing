@@ -1,6 +1,8 @@
 #ifndef VIEWPLANE_CPP
 #define VIEWPLANE_CPP
 
+#include <iostream>
+
 #include "ViewPlane.h"
 
 ViewPlane::ViewPlane(ViewPlane &vp)
@@ -26,6 +28,19 @@ void ViewPlane::show() {
 
 void ViewPlane::wait_display() {
   while (!display.is_closed()) display.wait();
+}
+
+void ViewPlane::print_frame() {
+  char* s=reinterpret_cast<char*>(img.data()+(width*height));
+  std::cout.write(s,width*height);
+  s=reinterpret_cast<char*>(img.data()+2*(width*height));
+  std::cout.write(s,width*height);
+  s=reinterpret_cast<char*>(img.data());
+  std::cout.write(s,width*height);   
+}
+
+void ViewPlane::write_to(std::string filename) {
+  img.save(filename.c_str());
 }
 
 #endif // VIEWPLANE_CPP

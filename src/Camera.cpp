@@ -1,9 +1,11 @@
 #ifndef CAMERA_CPP
 #define CAMERA_CPP
 
+#include <iostream>
+
 #include "Camera.h"
 
-Camera::Camera(Point3 _eye, Point3 _lookat, ViewPlane _view_plane, float _d, float _zoom)
+Camera::Camera(Point3 _eye, Point3 _lookat, ViewPlane &_view_plane, float _d, float _zoom)
 : eye(_eye), lookat(_lookat), view_plane(_view_plane), d(_d), zoom(_zoom) {
   w = (eye-lookat).get_unit_vector();
   u = (Vector3(0,1,0)^w).get_unit_vector();
@@ -22,27 +24,40 @@ Camera::Camera(Point3 _eye, Point3 _lookat, ViewPlane _view_plane, float _d, flo
 	}
 };
 
-void Camera::render(World &world) {
+void Camera::paint_all_vp(World &world) {
   float x, y;
   Ray ray;
   RGB px_color;
-  ViewPlane vp(view_plane);
 
-  vp.px_size /= zoom;
+  view_plane.px_size /= zoom;
   ray.origin = eye;
 
-  for (int r=0; r<vp.height; ++r) {
-    for (int c=0; c<vp.width; ++c) {
-      x = vp.px_size * (c- 0.5 * (vp.width-1));
-      y = vp.px_size * (r- 0.5 * (vp.height-1));
+  for (int r=0; r<view_plane.height; ++r) {
+    for (int c=0; c<view_plane.width; ++c) {
+      x = view_plane.px_size * (c- 0.5 * (view_plane.width-1));
+      y = view_plane.px_size * (r- 0.5 * (view_plane.height-1));
       ray.direction = Vector3(u*x + v*y - w*d).get_unit_vector();
       px_color = world.hit(ray);
 
-      vp.paint_px(c, r, px_color);
+      view_plane.paint_px(c, r, px_color);
     }
   }
-  vp.show();
-  vp.wait_display();
+}
+
+void Camera::show_image(World &world) {
+  paint_all_vp(world);
+  view_plane.show();
+  view_plane.wait_display();
+}
+
+void Camera::output_image(World &world) {
+  paint_all_vp(world);
+  view_plane.print_frame();
+}
+
+void Camera::write_image(World &world, std::string filename) {
+  paint_all_vp(world);
+  view_plane.write_to(filename);
 }
 
 #endif // CAMERA_CPP
